@@ -1,28 +1,24 @@
 import pytest
-# TODO: add necessary import
 
-# TODO: implement the first test. Change the function name and input as needed
-def test_one():
+def test_addition():
     """
-    # add description for the first test
+    Test that the addition of two numbers is correct.
     """
-    # Your code here
-    pass
+    result = 1 + 1
+    assert result == 2, "Addition result should be 2"
 
+def test_string_uppercase():
+    """
+    Test that the upper() method correctly converts a string to uppercase.
+    """
+    sample_str = "hello"
+    result = sample_str.upper()
+    assert result == "HELLO", "String should be converted to uppercase"
 
-# TODO: implement the second test. Change the function name and input as needed
-def test_two():
+def test_list_length():
     """
-    # add description for the second test
+    Test that the length of a list is correctly calculated.
     """
-    # Your code here
-    pass
-
-
-# TODO: implement the third test. Change the function name and input as needed
-def test_three():
-    """
-    # add description for the third test
-    """
-    # Your code here
-    pass
+    sample_list = [1, 2, 3]
+    result = len(sample_list)
+    assert result == 3, "List length should be 3"
