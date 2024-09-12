@@ -102,8 +102,11 @@ def load_model(path):
 def performance_on_categorical_slice(
     data, column_name, slice_value, categorical_features, label, encoder, lb, model
 ):
-    """ 
-    Computes the model metrics on a slice of the data specified by a column name and value.
+    """ Computes the model metrics on a slice of the data specified by a column name and
+
+    Processes the data using one hot encoding for the categorical features and a
+    label binarizer for the labels. This can be used in either training or
+    inference/validation.
 
     Inputs
     ------
@@ -114,28 +117,29 @@ def performance_on_categorical_slice(
     slice_value : str, int, float
         Value of the slice feature.
     categorical_features: list
-        List containing the names of the categorical features.
+        List containing the names of the categorical features (default=[])
     label : str
-        Name of the label column in `X`.
+        Name of the label column in `X`. If None, then an empty array will be returned
+        for y (default=None)
     encoder : sklearn.preprocessing._encoders.OneHotEncoder
         Trained sklearn OneHotEncoder, only used if training=False.
     lb : sklearn.preprocessing._label.LabelBinarizer
         Trained sklearn LabelBinarizer, only used if training=False.
-    model : sklearn.base.BaseEstimator
-        Model used for the task.
+    model : ???  # The type of model depends on your implementation.
 
     Returns
     -------
     precision : float
     recall : float
     fbeta : float
+
     """
     # Slice the data
-    data_slice = data[data[column_name] == slice_value]
-    
-    # Process the data
+    sliced_data = data[data[column_name] == slice_value]
+
+    # Process the sliced data
     X_slice, y_slice, _, _ = process_data(
-        data_slice,
+        sliced_data,
         categorical_features=categorical_features,
         label=label,
         training=False,
@@ -143,9 +147,10 @@ def performance_on_categorical_slice(
         lb=lb
     )
 
-    # Perform inference
+    # Get predictions
     preds = inference(model, X_slice)
 
     # Compute metrics
     precision, recall, fbeta = compute_model_metrics(y_slice, preds)
     return precision, recall, fbeta
+
