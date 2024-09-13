@@ -1,17 +1,19 @@
 import json
-
 import requests
 
-# TODO: send a GET using the URL http://127.0.0.1:8000
-r = None # Your code here
+# Base URL of the API
+BASE_URL = "http://127.0.0.1:8000"
+
+# TODO: send a GET request using the URL
+r = requests.get(f"{BASE_URL}/")
 
 # TODO: print the status code
-# print()
+print("GET request status code:", r.status_code)
+
 # TODO: print the welcome message
-# print()
+print("GET request response:", r.json())
 
-
-
+# Data to be sent in the POST request
 data = {
     "age": 37,
     "workclass": "Private",
@@ -29,10 +31,11 @@ data = {
     "native-country": "United-States",
 }
 
-# TODO: send a POST using the data above
-r = None # Your code here
+# TODO: send a POST request using the data above
+r = requests.post(f"{BASE_URL}/data/", json=data)
 
 # TODO: print the status code
-# print()
+print("POST request status code:", r.status_code)
+
 # TODO: print the result
-# print()
+print("POST request response:", r.json())
